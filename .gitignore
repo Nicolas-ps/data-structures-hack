@@ -1,0 +1,9 @@
+./.idea
+./vendor
+
+composer.json 
+composer.lock
+
+hh_autoload.json
+
+.hhconfig
