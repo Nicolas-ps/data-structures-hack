@@ -1,9 +1,11 @@
 # Data Structures in Hack
-Hack é um dialeto do PHP criado pelo facebook com foco em robustez de tipos e escalabilidade, mantendo a dinamicidade da linguagem original que trás consigo uma trade off de desenvolvimento mais tranquilo.
+Hack é um dialeto do PHP criado pelo facebook com foco em robustez de tipos e escalabilidade, mantendo a dinamicidade da linguagem original que traz consigo uma trade off de desenvolvimento mais tranquilo.
 
-O Hack é perfeitamente interoperável com o PHP, e precisava ser, pois o mesmo surgiu num contexto em que o PHP era a principal linguagem utilizada nos motores do facebook e começava a apresentar algumas limitações técnicas relacionadas à escalabilidade e segurança. Assim fez-se necessária uma transicação gradual entre tecnologias, de forma que não impactasse a operação da aplicação em produção. A interoperabilidade resolve esse problema.
+Há também um type checker utilitário que pode ser utilizado para realizar checagens básicas (verifica erros em tempo de build, como problemas na sintaxe e inferência de tipos).
 
-O Hack é executado pela HHVM, uma máquina virtual JIT também criada pelo facebook que trás o melhor dos dois mundos dos principais paradigmas de execução de código (interpretação e compilação). A HHVM trás a robustez necessária à linguagem através da checagem de tipos e implementação de validação na estruturação do programa para não permitir código não modular (fora de funções ou classes), obrigando o programador a organizar a base de código com mais afinco.
+O Hack é perfeitamente interoperável com o PHP, e precisava ser, pois o mesmo surgiu num contexto em que o PHP era a principal linguagem utilizada nos motores do facebook e começava a apresentar algumas limitações técnicas relacionadas à escalabilidade e segurança. Assim fez-se necessária uma transição gradual entre tecnologias, de forma que não impactasse a operação da aplicação em produção. A interoperabilidade resolve esse problema.
+
+O Hack é executado pela HHVM, uma máquina virtual JIT também criada pelo facebook que traz o melhor dos dois mundos dos principais paradigmas de execução de código (interpretação e compilação). A HHVM traz a robustez necessária à linguagem através da checagem de tipos e implementação de validação na estruturação do programa para não permitir código não modular (fora de funções ou classes), obrigando o programador a organizar a base de código com mais afinco.
 
 Abaixo você encontrará um tutorial de como inicializar um projeto Hack básico que utiliza alguns tipos primitivos e tipos de array nativos da linguagem, como Vetor e Dicionário para implementação de estruturas de dados simples.
 
@@ -33,7 +35,7 @@ hhvm --version
 ```
 ## Inicializando o projeto hack
 
-Crie um diretório para o projeto na localização que sua preferência no sistemas de arquivos da sua máquina, em seguida, crie um arquivo nomeado `.hhconfig` na raiz do diretório.
+Crie um diretório para o projeto na localização de sua preferência no sistema de arquivos da sua máquina, em seguida, crie um arquivo nomeado `.hhconfig` na raiz do diretório.
 
 ```bash
 touch .hhconfig
@@ -56,7 +58,7 @@ allowed_fixme_codes_strict=2011,2049,2050,2053,2083,3084,4027,4045,4047,4104,410
 ; enable_strict_string_concat_interp=true
 ```
 
-Com as diretivas configuradas, vamos agora aos passos necessárias para instalação da biblioteca base da linguagem e configuração do autoload de classes e arquivos.
+Com as diretivas configuradas, vamos agora aos passos necessários para instalação da biblioteca base da linguagem e configuração do autoload de classes e arquivos.
 
 ### Instalando o autoload de arquivos
 
@@ -67,10 +69,10 @@ composer require hhvm/hhvm-autoload
 ```
 
 
-Execute o comando abaixo para criar um arquivo `hh_autoload.json` e inserir as configurações e autoload.
+Execute o comando abaixo para criar um arquivo `hh_autoload.json` e inserir as configurações de autoload.
 
-```json
-cat > hh_autoload.json
+```bash
+cat > hh_autoload.json <<EOF
 {
   "roots": [
     "src/"
@@ -80,6 +82,7 @@ cat > hh_autoload.json
   ],
   "devFailureHandler": "Facebook\\AutoloadMap\\HHClientFallbackHandler"
 }
+EOF
 ```
 
 Por último, execute o comando abaixo para gerar os arquivos de autoload.
@@ -88,11 +91,11 @@ Por último, execute o comando abaixo para gerar os arquivos de autoload.
 vendor/bin/hh-autoload
 ```
 
-### Instalação a Hack Standard Library
+### Instalação da Hack Standard Library
 
 Feita a instalação e configuração do autoload, vamos à instalação da biblioteca base, a Hack Standard Library (hsl).
 
-O pacote hhvm/hsl contém a biblioteca base do hack. Ela contém funções e classes utilitárias para tarefas comuns de desenvolvimento, e na maioria dos casos substitui API's nativas do PHP.
+O pacote hhvm/hsl contém a biblioteca base do hack. Ela contém funções e classes utilitárias para tarefas comuns de desenvolvimento, e na maioria dos casos substitui APIs nativas do PHP.
  Com essa biblioteca o desenvolvimento com Hack se torna muito mais robusto e, na prática, é onde está boa parte das vantagens de se utilizar a linguagem, que, com esse pacote, se torna mais que um superset do PHP.
 
 ```bash
